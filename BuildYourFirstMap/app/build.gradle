@@ -15,7 +15,13 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        // Add build time string resource here
+        def secretsProperties = new Properties()
+        if (rootProject.file("secrets.properties").exists()) {
+            rootProject.file("secrets.properties")?.withInputStream {
+                secretsProperties.load(it)
+            }
+        }
+        resValue "string", "google_maps_key", (secretsProperties["GOOGLE_MAPS_API_KEY"] ?: "")
     }
 
     buildTypes {
@@ -36,6 +42,7 @@ dependencies {
 
     // Dependency to include Maps SDK for Android
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation 'com.google.maps.android:android-maps-utils:1.1.0'
 
     testImplementation 'junit:junit:4.13'
 }

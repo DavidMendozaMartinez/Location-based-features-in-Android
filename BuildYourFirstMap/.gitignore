@@ -11,6 +11,7 @@ gen/
 build.xml
 ant.properties
 local.properties
+secrets.properties
 project.properties
 .classpath
 .project
